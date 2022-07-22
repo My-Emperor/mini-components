@@ -1,0 +1,24 @@
+<!--components/my-component/my-swiper/index.wxml-->
+<swiper 
+        class="swiper-box"
+        style="--swiperWdith:{{swiperWdith}};--swiperHeight:{{swiperHeight}};--bgColor:{{backgroundColor}}"
+        indicator-dots="{{indicatorDots}}"
+        indicator-color="{{	indicatorColor}}"
+        autoplay="{{autoplay}}" 
+        interval="{{interval}}" 
+        duration="{{duration}}"
+        circular="{{circular}}"
+        previous-margin="{{marginPreNex}}"
+        next-margin="{{marginPreNex}}"
+        indicator-active-color="{{ indicatorActiveColor }}"
+        >
+        <block wx:for="{{swiperList}}" wx:key="*this">
+          <swiper-item class="swiper-item">
+            <image 
+              class="swiper-item-image" 
+              mode="aspectFill"  
+              style="--imageWidth:{{imageWidth}};--imageHeight:{{imageHeight}};"
+              src="{{item.imgUrl}}"></image>
+          </swiper-item>
+        </block>
+</swiper>
