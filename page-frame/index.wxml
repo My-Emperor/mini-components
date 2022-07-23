@@ -1,0 +1,49 @@
+  <!--page框架-->
+  <view class="page-frame">
+    <!--  navigation-bar start  -->
+    <view wx:if="{{!isTopNone}}"
+          class="navigation-bar"
+          style="height:{{platform=='ios'?38:42}}px;padding-top:{{statusBarHeight}}px;background-color:{{topBackground}};position: {{isTopFixed?'fixed':''}};">
+
+      <!--  home-icon  -->
+      <view wx:if="{{isHome}}" bindtap="returnHome" class="icon-box reback"
+            :style="height:{{platform == 'ios'?12:14}}px;width:{{platform == 'ios'?12:14}}px;padding:5px">
+            <view class="icon-home" style="--icon-color:{{iconColor}};"></view>
+      </view>
+      <!--  reback-icon  -->
+      <view wx:elif="{{isReback}}" bindtap="returnBack" class="icon-box reback"
+            style="height:{{platform == 'ios'?12:14}}px;width:{{platform == 'ios'?12:14}}px;padding:5px">
+        <view class="icon-reback" style="--icon-color:{{iconColor}};"></view>
+      </view>
+
+      <!--  title  -->
+      <view class="navigation-title" style="--title-color:{{titleColor}}">{{ title }}</view>
+    </view>
+    <!--  navigation-bar end  -->
+
+    <!--  page-scroll start -->
+    <scroll-view class="page-scroll" scroll-y="true">
+      <slot></slot>
+    </scroll-view>
+    <!--  page-scroll end  -->
+
+    <!--tab-bar start-->
+    <view wx:if="{{isBarPage}}" class="tab-bar" style="--tabbar-color:{{tabbarColor}}">
+      <view class="bar-list">
+        <view wx:for="{{tabBarList}}" wx:key="index" class="bar-item" bindtap="selectTab"
+              data-page="{{item.pagePath}}"
+              style="width: {{100 / tabBarList.length}}%">
+          <!--激活状态图片路径-->
+          <image wx:if="{{currentPagePath == item.pagePath}}" mode="scaleToFill" class="item-icon"
+                 src="{{item.selectedIconPath}}"></image>
+          <!--默认图片路径-->
+          <image wx:else mode="scaleToFill" class="item-icon" src="{{item.iconPath}}"></image>
+          <!--tab标题-->
+          <view wx:if="{{currentPagePath == item.pagePath}}" class="item-text" style="color:{{item.textColor}}">{{ item.text }}</view>
+          <view wx:else class="item-text">{{ item.text }}</view>
+        </view>
+      </view>
+    </view>
+    <!-- tab-bar end -->
+  </view>
+  <slot name="superPage"></slot>
