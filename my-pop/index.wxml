@@ -1,0 +1,30 @@
+<!--components/my-component/my-pop/index.wxml-->
+<view class="pop-component" >
+  <view class="pop-content-mask" catchtap="closeDialog" animation="{{maskAnimation}}">
+    <!-- center -->
+    <view catchtap wx:if="{{popConfig.mode == 'center'}}" class="pop-box-center" style="width: {{popConfig.width - 50}}rpx; height:{{popConfig.height - 50}}rpx;--backgroundColor:{{popConfig.backgroundColor}}" animation="{{popAnimation}}">
+    <slot></slot>
+    </view>
+
+    <!-- left -->
+    <view catchtap wx:elif="{{popConfig.mode == 'left'}}" class="pop-box-left" style="height:100%;--backgroundColor:{{popConfig.backgroundColor}}" animation="{{popAnimation}}">
+    <slot></slot>
+    </view>
+
+    <!-- right -->
+    <view catchtap wx:elif="{{popConfig.mode == 'right'}}" class="pop-box-right" style="height:100%;--backgroundColor:{{popConfig.backgroundColor}}" animation="{{popAnimation}}">
+    <slot></slot>
+    </view>
+
+    <!-- top -->
+    <view catchtap wx:elif="{{popConfig.mode == 'top'}}" class="pop-box-top" style="width:100%;--backgroundColor:{{popConfig.backgroundColor}}" animation="{{popAnimation}}">
+    <slot></slot>
+    </view>
+
+    <!-- bottom -->
+    <view catchtap wx:elif="{{popConfig.mode == 'bottom'}}" class="pop-box-bottom" style="width:100%;--backgroundColor:{{popConfig.backgroundColor}}" animation="{{popAnimation}}">
+    <slot></slot>
+    </view>
+
+  </view>
+</view>
