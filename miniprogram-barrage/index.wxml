@@ -1,0 +1,39 @@
+<view class="barrage-area" style="opacity: {{alpha}}; font: {{font}}; padding: {{padding}}">
+  <block wx:for="{{tunnels}}" wx:key="tunnelId" wx:for-item="tunnel" wx:for-index="tunnelId">
+    <view class="barrage-tunnel" style="height: {{tunnel.height}}px; border-top-width: {{tunnelShow ? 1 : 0}}px">
+      <view class="tunnel-tips" hidden="{{!tunnelShow}}">轨道{{tunnelId}}</view>
+      <block wx:for="{{tunnel.bullets}}" wx:key="bulletId" wx:for-item="bullet" wx:for-index="bulletId">
+        <view class="bullet-item {{bullet.duration > 0 ? 'bullet-move' : ''}} {{bullet.paused ? 'paused' : ''}} "
+          style="color: {{bullet.paused ? '#fff' : bullet.color}}; height: {{tunnel.height}}px; line-height: {{tunnel.height}}px; animation-duration: {{bullet.duration}}s; animation-play-state: {{bullet.paused ? 'paused' : 'running'}}"
+          data-tunnelid="{{tunnelId}}" data-id="{{bullet.id}}" data-bulletid="{{bulletId}}"
+          bindanimationend="onAnimationend" bindtap="onTapBullet">
+          <image class="bullet-item_img" wx:if="{{bullet.image.head}}"
+            style="width: {{bullet.image.head.width}}px; height: {{bullet.image.head.height}}px" mode="aspectFit"
+            src="{{bullet.image.head.src}}"></image>
+
+          <view class="bullet-item_text {{bullet.reportStatus?'':'my-bullet'}}" style="margin:0 {{bullet.image.gap}}px; opacity: 1">
+            <view style="display: flex; align-items: center;">
+              <text class="bullet-text">{{bullet.content}}</text>
+              <view wx:if="{{bullet.paused}}" style="display: flex; align-items: center;margin-left: 20rpx;">
+                <view catchtap="changeBarrageType" data-tunnelid="{{tunnelId}}" data-bulletid="{{bulletId}}" data-id="{{bullet.id}}" data-type="{{bullet.praiseStatus}}" style="display: flex; align-items: center;">
+                  <image wx:if="{{bullet.praiseStatus}}" class="like-img" mode="aspectFill"
+                    src="../../images/video/info-like.png">
+                  </image>
+                  <image wx:else class="like-img" mode="aspectFill" src="../../images/video/nolike.png"></image>
+                  <text class="like-text">{{bullet.praise || '点赞'}}</text>
+                </view>
+                <view wx:if="{{bullet.reportStatus}}" catchtap="reportBarrage" data-tunnelid="{{tunnelId}}" data-bulletid="{{bulletId}}" data-id="{{bullet.id}}" data-type="{{bullet.reportStatus}}" style="display: flex; align-items: center;margin-left: 16rpx;">
+                  <image class="report-img" mode="aspectFill" src="../../images/video/noreport.png"></image>
+                  <text class="report-text">举报</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <image class="bullet-item_img" wx:if="{{bullet.image.tail}}"
+            style="width: {{bullet.image.tail.width}}px; height: {{bullet.image.tail.height}}px" mode="aspectFit"
+            src="{{bullet.image.tail.src}}"></image>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>
